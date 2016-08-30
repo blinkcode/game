@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		<!--<link rel="stylesheet" href="../css/mui.min.css" />-->
+        <!--<script src="../js/mui.min.js"></script>-->
+		<style type="text/css">
+			body,div,p,span,ul,li{
+				margin: 0;
+				padding: 0;	
+			}
+			body{
+				width: 100vw;
+				height: 90vh;
+				position:relative;
+				/*transform: scale(0.8);*/
+			}
+			div#mainBox{
+				width:330px;
+				height:500px;
+				margin: 0 auto;
+				margin-top: 40px;
+			}
+			#mainBox img{
+				width: 100px;;
+			}
+			#mainBox ul{
+				width: 320px;
+				height:320px;
+				position: relative;
+				box-sizing: border-box;
+				/*transform: scale(0.7);*/
+			}
+			ul li{
+				width: 25%;
+				height: 25%;
+				/*float: left;*/
+				position: absolute;
+				border: 1px solid #CCCCCC;
+				list-style: none;
+				/*background-size: 360px;*/
+			}
+			
+			.img{
+				position: relative;
+				margin-top: 50px;;
+			}
+			.img .zhe{
+				width: 25px;;
+				height: 25px;;
+				background: white;
+				position: absolute;
+				left: 0px;;
+				top:0px;
+			}
+			.mui-title{
+				text-align: center;
+				color:#FFFFFF;
+			}
+			.mui-bar-nav{
+				background: #00BECC;
+				color: white;
+				font-weight: normal;
+			}
+			.time{
+				position: absolute;
+				right:30%;
+				top: 5%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="mainBox">
+			<div class="img"><img src="img/123.jpg" alt="" />
+				<div class="zhe"></div>
+			</div>
+			<span class="time">时间:<span id="gameTime"></span>s</span>
+			<ul>
+				<li data-none = "first" class="firli"></li><li></li><li></li><li></li>
+				<li></li><li></li><li></li><li></li><li></li><li></li>
+				<li></li><li></li><li></li><li></li><li></li><li></li>
+			</ul>
+		</div>
+		<script src="js/zepto.js"></script>
+		<script>
+//			mui.init({
+//			  gestureConfig:{
+//			   tap: true, //默认为true
+//			   doubletap: true, //默认为false
+//			   longtap: true, //默认为false
+//			   swipe: true, //默认为true
+//			   drag: true, //默认为true
+//			   hold:false,//默认为false，不监听
+//			   release:false//默认为false，不监听
+//			  }
+//			});
+			var length = $('li').length;
+			for(var i = 0;i<length;i++){
+					if(i<4){
+						$('li').eq(i+1).css({
+							background:'url("img/123.jpg")',
+							'background-position':-(i+1)*80+'px'+' 0'
+						})
+					}else if(i>=4&&i<8){
+						
+						$('li').eq(i).css({
+							
+							background:'url("img/123.jpg")',
+							'background-position':-(i-4)*80+'px -80px'
+						})
+					}else if(i>=8&&i<12){
+						$('li').eq(i).css({
+							
+							background:'url("img/123.jpg")',
+							'background-position':-(i-8)*80+'px -160px'
+						})
+					}else{
+						$('li').eq(i).css({
+							
+							background:'url("img/123.jpg")',
+							'background-position':-(i-12)*80+'px -240px'
+						})
+					}
+				}
+			pailie();
+			function pailie(){
+				for (var i = 1;i<length;i++) {
+				if(i<4){
+					$('li').eq(i).css({
+						left:i*80+'px',
+						top:'0px'	
+					})
+						
+				}else if(i>=4&i<8){
+					$('li').eq(i).css({
+						left:(i-4)*80+'px',
+					top:'80px',
+					})
+					
+				}else if(i>=8&i<12){
+					$('li').eq(i).css({
+						left:(i-8)*80+'px',
+					top:'160px',
+					})
+					
+				}else{
+					$('li').eq(i).css({
+							left:(i-12)*80+'px',
+					top:'240px',
+					})
+				
+				}
+			}
+		}
+			daluan();
+			function daluan(){
+				for(var i = 0;i<10;i++){
+					var randomNum = Math.floor(Math.random()*14+1);
+					var randomNum1 = Math.floor(Math.random()*14+1);
+//					console.log(randomNum)
+					var left1= $('li').eq(randomNum).css('left');
+//					console.log(left1);
+					var top1 = $('li').eq(randomNum).css('top');
+//					console.log(top1);
+					$('li').eq(randomNum).css({
+						left:$('li').eq(randomNum1).css('left'),
+						top:$('li').eq(randomNum1).css('top'),
+					});
+					$('li').eq(randomNum1).css({
+						left:left1,
+						top:top1,
+					})
+				}
+			}
+			
+			$('ul').on('click','li',function(){
+				
+//				console.log($(this).index())
+//				console.log($('li[data-none=first]').css('left')); 
+				var left1 = parseInt($(this).css('left'));
+				var top1 = parseInt($(this).css('top'));
+//				console.log(top1);
+				var left2 =$('li.firli').position().left;
+				var top2 = $('li.firli').position().top;
+////			console.log(Math.abs(left1-left2));
+				
+//				console.log(left1);
+//				console.log(top1);
+//				console.log(left2)
+//				console.log(top2);
+				if(Math.abs(left1-left2)==80){
+					if(Math.abs(top1-top2)==0){
+						$(this).css({
+							left:left2,
+							top:top2,
+						})
+						$('li[data-none=first]').css({
+							left:left1,
+							top:top1,
+						})
+					}
+				}
+				if(Math.abs(left1-left2)==0){
+					if(Math.abs(top1-top2)==80){
+						$(this).css({
+							left:left2,
+							top:top2,
+						})
+						$('li[data-none=first]').css({
+							left:left1,
+							top:top1,
+						})
+					}
+				}
+			})
+			var c=0
+			var t
+			function timedCount(){
+				document.getElementById('gameTime').innerHTML=c;
+				c=c+1
+				t=setTimeout("timedCount()",1000)
+			}
+			function stopCount(){
+				clearTimeout(t)
+			} 
+			timedCount();
+		</script>
+	</body>
+</html>
